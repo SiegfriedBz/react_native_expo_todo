@@ -6,8 +6,8 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import TodoListScreen from './TodoListScreen';
-import NewTodoScreen from './NewTodoScreen';
+import TodoListScreen from './components/TodoListScreen';
+import NewTodoScreen from './components/NewTodoScreen';
 
 export const TodoContext = React.createContext()
 
@@ -24,13 +24,11 @@ export default function App() {
 
   const onAddTodo = () => {
     setTodos([...todos, {...todo, id: uuid()}])
-    setTodo({title:'', description:'', idDone: 'false'})
+    setTodo({title:'', description:'', isDone: false})
   }
 
   const onToggleTodoIsDone = (_todo) => {
-    console.log(_todo)
     let updatedTodo = {..._todo, isDone: !_todo.isDone}
-    console.log(_todo.id)
     let newTodos = todos.filter(todo => todo.id !== _todo.id)
     setTodos([...newTodos, updatedTodo])
   }

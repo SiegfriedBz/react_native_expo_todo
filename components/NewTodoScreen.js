@@ -2,7 +2,7 @@
     import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
     import { useNavigation } from '@react-navigation/native';
 
-    import {TodoContext} from './App'
+    import {TodoContext} from '../App'
 
     const NewTodoScreen = () => {
         const { todo, setTodo, onAddTodo } = useContext(TodoContext)
@@ -30,37 +30,38 @@
             borderWidth: 0.5, 
             borderColor: 'black',
             borderRadius: 4,
-            marginVertical: 4
+            marginVertical: 1
+          }, 
+          button: {
+            borderRadius: 16
           }
         })
 
         return (
           <View style={styles.container}>
               <View style={styles.input_group}>
-                  <Text style={styles.input_label}
-                  >Name</Text>
+                  <Text style={styles.input_label}>Name</Text>
                   <TextInput
                     style={styles.input_ctrl}
                     value={todo.name}
                     onChangeText={text => setTodo({...todo, ['title']: text})}
                   />
-                  <Text style={styles.input_label}
-                  >Description</Text>
+                  <Text style={styles.input_label}>Description</Text>
                   <TextInput
                   style={styles.input_ctrl}
                   value={todo.description}
                   onChangeText={text => setTodo({...todo, ['description']: text})}
                   />
                   <Button 
-                    title='Create'
+                    style={styles.button}
+                    title='Submit'
                     onPress={() => {
                       onAddTodo()
                       nav.navigate('TodoList')
                     }}
                   />
               </View>
-
-`          </View>
+          </View>
           )
     }
 

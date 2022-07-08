@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { View, Text, StyleSheet, Button, CheckBox } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
-import { TodoContext } from './App'
+import { TodoContext } from '../App'
 
 const TodoCard = ({ todo }) => {
 
@@ -24,8 +23,7 @@ const TodoCard = ({ todo }) => {
                 <Text>{todo.title}</Text>
                 <Text>{todo.description}</Text>
                 <CheckBox   
-                    defaultValue='false'
-                    value={todo.isDone}
+                    value={todo.isDone || false}
                     onValueChange={() => onToggleTodoIsDone(todo)}
                 />
             </View>
