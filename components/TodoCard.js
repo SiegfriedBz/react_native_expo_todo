@@ -19,10 +19,13 @@ const TodoCard = ({ todo }) => {
 
     return (
         <View style={styles.container}>
-            <View>
-                <Text>{todo.title}</Text>
-                <Text>{todo.description}</Text>
+            <View
+                style={{flex: 1, flexDirection: "row", margin: 16}}
+            >
+                <Text style={{margin: 8}}>{todo.title}</Text>
+                <Text style={{margin: 8}}>{todo.description}</Text>
                 <CheckBox   
+                    style={{margin: 8}}
                     value={todo.isDone || false}
                     onValueChange={() => onToggleTodoIsDone(todo)}
                 />

@@ -13,28 +13,25 @@
           container: {
             flex: 1, 
             alignItems: 'center',
-            justifyContent: 'space-around',
+            justifyContent: 'flex-start',
             backgroundColor: 'lightGrey',
           },
           input_group: {
             flex: 0.2,
             backgroundColor: 'white',
-            padding: 16,
+            padding: 32,
             borderRadius: 8
           },
           input_label: {
             fontSize: 16,
-            textAlign: 'center',
+            textAlign: 'center'
           },
           input_ctrl: {
             borderWidth: 0.5, 
             borderColor: 'black',
             borderRadius: 4,
             marginVertical: 1
-          }, 
-          button: {
-            borderRadius: 16
-          }
+          } 
         })
 
         return (
@@ -53,7 +50,6 @@
                   onChangeText={text => setTodo({...todo, ['description']: text})}
                   />
                   <Button 
-                    style={styles.button}
                     title='Submit'
                     onPress={() => {
                       onAddTodo()
