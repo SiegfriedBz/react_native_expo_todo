@@ -1,34 +1,40 @@
-import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-
+import React, { useContext } from 'react'
+import { View, Text, StyleSheet, Button, CheckBox } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import { TodoContext } from './App'
 
 const TodoCard = ({ todo }) => {
 
+    const { onDeleteTodo, onToggleTodoIsDone } = useContext(TodoContext)
+    
     const styles = StyleSheet.create({
-        title: {
-            fontSize: 24,
-            fontWeight: 'bold'
-        },
-        body: {
-            fontSize: 16,
-        },
-        box: {
-            flex: 1,
-        }
+        container: {
+            flex: 1, 
+            alignItems: 'center',
+            backgroundColor: 'white',
+            borderColor: 'black',
+            margin: 8,
+            padding: 8,
+          }
     })
 
     return (
-        <View style={styles.box}>
-            <Text style={styles.title}>
-
-            </Text>
-            <Text style={styles.body}>
-
-            </Text>
-            <Text style={styles.body}>
-
-            </Text>
-
+        <View style={styles.container}>
+            <View>
+                <Text>{todo.title}</Text>
+                <Text>{todo.description}</Text>
+                <CheckBox   
+                    defaultValue='false'
+                    value={todo.isDone}
+                    onValueChange={() => onToggleTodoIsDone(todo)}
+                />
+            </View>
+            <Button 
+                title="Delete"
+                onPress={() => onDeleteTodo(todo)}
+            />
         </View>
     )
 }
+
+export default TodoCard

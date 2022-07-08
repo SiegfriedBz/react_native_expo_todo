@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { uuid } from 'uuidv4';
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -14,16 +14,30 @@ export const TodoContext = React.createContext()
 export default function App() {
 
   const [todo, setTodo] = useState({
-    name:'',
-    description:''
+    title:'',
+    description:'',
+    isDone: false
   })
   const [todos, setTodos] = useState([])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const Stack = createNativeStackNavigator();
+
+  const onAddTodo = () => {
     setTodos([...todos, {...todo, id: uuid()}])
-    setTodo({name:'', description:''})
-    alert("Todo created")
+    setTodo({title:'', description:'', idDone: 'false'})
+  }
+
+  const onToggleTodoIsDone = (_todo) => {
+    console.log(_todo)
+    let updatedTodo = {..._todo, isDone: !_todo.isDone}
+    console.log(_todo.id)
+    let newTodos = todos.filter(todo => todo.id !== _todo.id)
+    setTodos([...newTodos, updatedTodo])
+  }
+
+  const onDeleteTodo = (_todo) => {
+    let newTodos = todos.filter(todo => todo !== _todo )
+    setTodos(newTodos)
   }
 
   const TodoContextValues = {
@@ -31,7 +45,9 @@ export default function App() {
     setTodo,
     todos,
     setTodos,
-    handleSubmit
+    onAddTodo, 
+    onDeleteTodo,
+    onToggleTodoIsDone
   }
 
   const styles = StyleSheet.create({
@@ -39,25 +55,17 @@ export default function App() {
       flex: 1,
       backgroundColor: 'white',
       justifyContent: 'center',
-    },
-    container: {
-      flex: 1,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
     }
-    
   });
 
-  const Stack = createNativeStackNavigator();
-
   return (
-    <NavigationContainer>
+        <NavigationContainer>
         <TodoContext.Provider value={TodoContextValues}>
           <View 
             style={styles.header}
             >
-            <Stack.Navigator>
+            <Stack.Navigator initialRouteName='TodoList'
+            >
               <Stack.Screen 
                 name='TodoList'
                 component={TodoListScreen}

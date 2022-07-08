@@ -1,30 +1,24 @@
 import React, { useContext } from 'react'
-import { View, Text } from 'react-native'
-import {TodoContext} from './App'
+import { View, Text, Button } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import { TodoContext } from './App'
+import TodoCard from './TodoCard'
 
 const TodoListScreen = () => {
 
+  const nav = useNavigation()
   const { todos } = useContext(TodoContext)
 
     return (
         <View>
-        <Text>Todos</Text>
-        {todos && todos.map(todo => {
-          return(
-            <View key={todo.id}>
-              <Text>
-                Todo# {todo.id.slice(0, 4)}
-              </Text>
-              <Text>
-                {todo.name}
-              </Text>
-              <Text>
-                {todo.description}
-              </Text>
-            </View>
-          )
-        })}
-      </View>
+          {todos && todos.map(todo => {
+            return <TodoCard key={todo.id} todo={todo} />
+          })}
+          <Button 
+            title="Add Todo"
+            onPress={() => nav.navigate('NewTodo')}
+            />
+        </View>
     )
 }
 
